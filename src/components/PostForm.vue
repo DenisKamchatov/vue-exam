@@ -61,6 +61,29 @@
 </template>
 
 <script>
+import axios from "axios"; 
+
+const createApi = () => {
+  const api = axios.create({
+    baseURL: `https://demo-api.vsdev.space/api/brom`,
+    timeout: 50000,
+    withCredentials: false
+  });
+  const onSuccess = (response) => response;
+
+  const onFail = (err) => {
+    const {response} = err;
+
+    throw response;
+  }
+
+  api.interceptors.response.use(onSuccess, onFail);
+
+  return api;
+};
+
+const apiAxios = createApi();
+
 
 export default {
   name: "PostForm",
@@ -89,11 +112,13 @@ export default {
         postData.append(key, data[key])
       }
 
-      const res = await fetch('https://demo-api.vsdev.space/api/brom/sales', {
-        method: 'POST',
-        body: postData
-      });
-      console.log(res)
+      apiAxios.post('/sales')
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     }
   },
   async created() {

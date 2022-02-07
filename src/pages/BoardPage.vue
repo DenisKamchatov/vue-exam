@@ -32,14 +32,19 @@ export default {
   name: "BoardPage",
   components: {PostForm, LeftWidget},
   data: () => ({
-    posts: '',
+    posts: [],
     countCars: '',
   }),
   async mounted() {
-    const res = await fetch('https://demo-api.vsdev.space/api/brom/sales')
-    const posts = await res.json()
-    this.posts = posts
-    this.countCars = posts.length
+    fetch('https://demo-api.vsdev.space/api/brom/sales')
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      console.log(res);
+      this.posts = res;
+      this.countCars = res.length
+    });
   }
 };
 </script>

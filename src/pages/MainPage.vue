@@ -21,9 +21,9 @@ export default {
     image: ''
   }),
   async mounted() {
-    const res = await fetch('https://demo-api.vsdev.space/api/brom/home_page')
-    const image = await res.json()
-    this.image = image
+    const res = await fetch('https://demo-api.vsdev.space/api/brom/home_page');
+    const image = await res.json();
+    this.image = image;
   }
 };
 </script>
